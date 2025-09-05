@@ -34,6 +34,7 @@ const loadLevalWord = (id) => {
     fetch(url)
         .then((res) => res.json())
         .then((data) => {
+
             removeActive(); // remove all active class
             const clickBtn = document.getElementById(`lesson-btn-${id}`)
             // console.log(clickBtn);
@@ -151,3 +152,18 @@ const displayLesson = (lessons) => {
 }
 
 LoadLessons();
+
+document.getElementById("btn-search").addEventListener("click", ()=> {
+    removeActive();
+    const inputSearch = document.getElementById("input-search");
+    const searchValue = inputSearch.value.trim().toLowerCase();
+    console.log(searchValue)
+    fetch("https://openapi.programming-hero.com/api/words/all")
+    .then(res => res.json())
+    .then(data => {
+        const allWords = data.data;
+        console.log(allWords)
+        const filterWords = allWords.filter(word=> word.word.toLowerCase().includes(searchValue))
+        displayLevalWord(filterWords)
+    })
+})
