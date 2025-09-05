@@ -4,6 +4,12 @@ const createElements = (arr) => {
     return htmlElements.join(" ");
 }
 
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
 const manageSpiner = (stutus)=>{
     if(stutus == true){
         document.getElementById("spinner").classList.remove("hidden");
@@ -96,7 +102,7 @@ const displayLevalWord = (words) => {
 
     if (words.length == 0) {
         wordContainer.innerHTML = `
-            <div class="hind-siliguri-font text-center col-span-full rounded py-10">
+            <div class="hind-siliguri-font text-center col-span-full rounded py-5">
             <img class="mx-auto" src="./assets/alert-error.png" alt="">
             <p class="text-lg font-medium text-gray-400 my-2">এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</p>
             <h3 class="font-bold text-2xl">নেক্সট Lesson এ যান</h3>
@@ -125,7 +131,7 @@ const displayLevalWord = (words) => {
 
             <div class="flex justify-between items-center">
               <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1a91ff1a] hover:bg-[#1a91ff80] rounded-lg p-2"><i class="fa-solid fa-circle-info"></i></button>
-              <button class="btn bg-[#1a91ff1a] hover:bg-[#1a91ff80] rounded-lg p-2"><i class="fa-solid fa-volume-high"></i></button>
+              <button onclick ="pronounceWord('${word.word}')" class="btn bg-[#1a91ff1a] hover:bg-[#1a91ff80] rounded-lg p-2"><i class="fa-solid fa-volume-high"></i></button>
             </div>
           </div>
         `
